@@ -1,61 +1,66 @@
 .my-card {
-  background-color: rgba(255, 255, 255, 0.8);
+  
+  background: linear-gradient(45deg, rgb(30, 30, 30), rgb(60, 60, 60));
   font-size: 30px;
   text-align: center;
   width: 100px;
   height: 150px;
-  border-radius: 25px;
+  border-radius: 10px;
+  border-style: solid;
+  border-width: 2px;
+  border-color: rgb(0, 0, 0);
 }
 
 .solved {
   width: 0;
   height: 0;
+  border-width: 0;
 }
 
 .red {
-  background-color: rgb(255, 0, 0);
+  background: linear-gradient(45deg, rgb(255, 0, 0), rgb(255, 0, 0));
 }
 
 .lime {
-  background-color: rgb(0, 255, 0);
+  background: linear-gradient(45deg, rgb(0, 255, 0), rgb(0, 255, 0));
 }
 
 .blue {
-  background-color: rgb(0, 0, 255);
+  background: linear-gradient(45deg, rgb(0, 0, 255), rgb(0, 0, 255));
 }
 
 .maroon {
-  background-color: rgb(128, 0, 0);
+  background: linear-gradient(45deg, rgb(128, 0, 0), rgb(128, 0, 0));
 }
 
 .green {
-  background-color: rgb(0, 128, 0);
+  background: linear-gradient(45deg, rgb(0, 128, 0), rgb(0, 128, 0));
 }
 
 .navy {
-  background-color: rgb(0, 0, 128);
+  background: linear-gradient(45deg, rgb(0, 0, 128), rgb(0, 0, 128));
 }
 
 .yellow {
-  background-color: rgb(255, 255, 0);
+  background: linear-gradient(45deg, rgb(255, 255, 0), rgb(255, 255, 0));
 }
 
 .magenta {
-  background-color: rgb(255, 0, 255);
+  background: linear-gradient(45deg, rgb(255, 0, 255), rgb(255, 0, 255));
 }
 
 .cyan {
-  background-color: rgb(0, 255, 255);
+  background: linear-gradient(45deg, rgb(0, 255, 255), rgb(0, 255, 255));
 }
 
 .olive {
-  background-color: rgb(128, 128, 0);
+  background: linear-gradient(45deg, rgb(128, 128, 0), rgb(128, 128, 0));
 }
 
 .purple {
-  background-color: rgb(128, 0, 128);
+  background: linear-gradient(45deg, rgb(128, 0, 128), rgb(128, 0, 128));
 }
 
 .teal {
-  background-color: rgb(0, 128, 128);
+  background: linear-gradient(45deg, rgb(0, 128, 128), rgb(0, 128, 128));
 }

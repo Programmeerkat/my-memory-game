@@ -4,7 +4,7 @@
   right:0px;
   bottom:0px;
   left:0px;
-  background-color: rgb(224, 224, 224);
+  background-image: radial-gradient( rgb(182, 236, 240), rgb(204, 229, 255));
   display: grid;
   grid-template-columns: auto auto auto auto auto auto;
   justify-content: center; 
