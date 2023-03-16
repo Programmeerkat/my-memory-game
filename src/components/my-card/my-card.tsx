@@ -1,4 +1,4 @@
-import { Component, Prop, Event, EventEmitter, Host, h, Watch } from '@stencil/core';
+import { Component, Prop, Event, EventEmitter, Host, h } from '@stencil/core';
 
 @Component({
   tag: 'my-card',
@@ -6,14 +6,14 @@ import { Component, Prop, Event, EventEmitter, Host, h, Watch } from '@stencil/c
 })
 export class MyCard {
 
-  @Prop() card: {cardId: number, isShown: boolean, isSolved: boolean, color: string};
+  @Prop() card: {cardId: number, isShown: boolean, solved: boolean, color: string};
 
   @Prop() try: number = 0;
 
   @Event() showEvent: EventEmitter;
 
   clickHandler() {
-    if (!this.card.isSolved) {
+    if (!this.card.solved) {
       this.showEvent.emit(this.card);
     }
   }
@@ -21,7 +21,7 @@ export class MyCard {
   render() {
     return (
       <Host
-        class={`my-card ${this.card.isSolved ? 'solved' : this.card.isShown ? this.card.color : ''}`}
+        class={`my-card ${this.card.solved ? 'solved' : this.card.isShown ? this.card.color : ''}`}
         onClick={this.clickHandler.bind(this)}
       >
       </Host>

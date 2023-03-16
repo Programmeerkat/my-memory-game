@@ -7,8 +7,11 @@
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 export namespace Components {
     interface MyCard {
-        "card": {cardId: number, isShown: boolean, isSolved: boolean, color: string};
+        "card": {cardId: number, isShown: boolean, solved: boolean, color: string};
         "try": number;
+    }
+    interface MyModal {
+        "text": string;
     }
     interface MyTable {
     }
@@ -17,12 +20,22 @@ export interface MyCardCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLMyCardElement;
 }
+export interface MyModalCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLMyModalElement;
+}
 declare global {
     interface HTMLMyCardElement extends Components.MyCard, HTMLStencilElement {
     }
     var HTMLMyCardElement: {
         prototype: HTMLMyCardElement;
         new (): HTMLMyCardElement;
+    };
+    interface HTMLMyModalElement extends Components.MyModal, HTMLStencilElement {
+    }
+    var HTMLMyModalElement: {
+        prototype: HTMLMyModalElement;
+        new (): HTMLMyModalElement;
     };
     interface HTMLMyTableElement extends Components.MyTable, HTMLStencilElement {
     }
@@ -32,19 +45,25 @@ declare global {
     };
     interface HTMLElementTagNameMap {
         "my-card": HTMLMyCardElement;
+        "my-modal": HTMLMyModalElement;
         "my-table": HTMLMyTableElement;
     }
 }
 declare namespace LocalJSX {
     interface MyCard {
-        "card"?: {cardId: number, isShown: boolean, isSolved: boolean, color: string};
+        "card"?: {cardId: number, isShown: boolean, solved: boolean, color: string};
         "onShowEvent"?: (event: MyCardCustomEvent<any>) => void;
         "try"?: number;
+    }
+    interface MyModal {
+        "onStartOver"?: (event: MyModalCustomEvent<any>) => void;
+        "text"?: string;
     }
     interface MyTable {
     }
     interface IntrinsicElements {
         "my-card": MyCard;
+        "my-modal": MyModal;
         "my-table": MyTable;
     }
 }
@@ -53,6 +72,7 @@ declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
             "my-card": LocalJSX.MyCard & JSXBase.HTMLAttributes<HTMLMyCardElement>;
+            "my-modal": LocalJSX.MyModal & JSXBase.HTMLAttributes<HTMLMyModalElement>;
             "my-table": LocalJSX.MyTable & JSXBase.HTMLAttributes<HTMLMyTableElement>;
         }
     }
