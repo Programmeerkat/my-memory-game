@@ -6,6 +6,14 @@ import { Component, State, Listen, Host, h } from '@stencil/core';
 })
 export class MyTable {
   
+  @State() counter = 0;
+  
+  @State() shuffledCards = [];
+  
+  private openedCards = [];
+  
+  private locked = false;
+  
   private colors = [
     "red",
     "lime",
@@ -21,21 +29,49 @@ export class MyTable {
     "teal"
   ]
 
-  @State() shuffledCards = [];
-
   @Listen('showEvent')
   showEventHandler(event: CustomEvent) {
-    const color = event.detail;
+    if (this.locked) {
+      return
+    }
+    const card = event.detail;
+    const oldIsShown = this.shuffledCards[card.cardId].isShown;
+    if (!oldIsShown) {
+      this.shuffledCards[card.cardId].isShown= !this.shuffledCards[card.cardId].isShown;
+    }
+    this.openedCards.push(card);
+    if (this.openedCards.length === 2) {
+      this.locked = true;
+      setTimeout(() => {
+        if (this.openedCards[0].color == this.openedCards[1].color) {
+          this.shuffledCards[this.openedCards[0].cardId].isSolved = true;
+          this.shuffledCards[this.openedCards[1].cardId].isSolved = true;
+        }
+        this.openedCards = [];
+        for (let i = 0; i < 24; i++) {
+          this.shuffledCards[i].isShown = false;
+        }
+        this.counter++;
+        this.locked = false;
+      }, 500);
+    }
+    this.counter++;
   }
 
   shuffleCards() {
-    let cards = [0,0,1,1,2,2,3,3,4,4,5,5,6,6,7,7,8,8,9,9,10,10,11,11];
     let shuffledCards = [];
     for (let i = 0; i < 24; i++) {
-      const size = 24 - i;
-      const randomNumber = Math.floor(Math.random() * size);
-      cards.splice(randomNumber,1);
-      shuffledCards.push(randomNumber);
+      const card = {
+        cardId: undefined,
+        isShown: false,
+        solved: false,
+        color: this.colors[i % 12]
+      }
+      const randomNumber = Math.floor(Math.random() * i);
+      shuffledCards.splice(randomNumber, 0, card);
+    }
+    for (let i = 0; i < 24; i++) {
+      shuffledCards[i].cardId = i;
     }
     this.shuffledCards = shuffledCards;
   }
@@ -47,7 +83,7 @@ export class MyTable {
   render() {
     return (
       <Host class="my-table">
-        {this.shuffledCards.map(item => <my-card color={this.colors[item]}></my-card>)}
+        {this.shuffledCards.map(card => (<my-card key={card.cardId} card={card} try={this.counter}></my-card>))}
       </Host>
     );
   }

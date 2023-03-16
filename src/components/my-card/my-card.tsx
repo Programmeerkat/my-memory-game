@@ -1,4 +1,4 @@
-import { Component, Prop, State, Event, EventEmitter, Host, h } from '@stencil/core';
+import { Component, Prop, Event, EventEmitter, Host, h, Watch } from '@stencil/core';
 
 @Component({
   tag: 'my-card',
@@ -6,22 +6,22 @@ import { Component, Prop, State, Event, EventEmitter, Host, h } from '@stencil/c
 })
 export class MyCard {
 
-  @Prop() color: string;
+  @Prop() card: {cardId: number, isShown: boolean, isSolved: boolean, color: string};
 
-  @State() isShown = false;
+  @Prop() try: number = 0;
 
   @Event() showEvent: EventEmitter;
 
   clickHandler() {
-    this.isShown = !this.isShown;
-    this.showEvent.emit(this.color);
+    if (!this.card.isSolved) {
+      this.showEvent.emit(this.card);
+    }
   }
 
   render() {
-    console.log(this.color)
     return (
       <Host
-        class={`my-card ${!this.isShown ? this.color : ''}`}
+        class={`my-card ${this.card.isSolved ? 'solved' : this.card.isShown ? this.card.color : ''}`}
         onClick={this.clickHandler.bind(this)}
       >
       </Host>

@@ -7,7 +7,8 @@
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 export namespace Components {
     interface MyCard {
-        "color": string;
+        "card": {cardId: number, isShown: boolean, isSolved: boolean, color: string};
+        "try": number;
     }
     interface MyTable {
     }
@@ -36,8 +37,9 @@ declare global {
 }
 declare namespace LocalJSX {
     interface MyCard {
-        "color"?: string;
+        "card"?: {cardId: number, isShown: boolean, isSolved: boolean, color: string};
         "onShowEvent"?: (event: MyCardCustomEvent<any>) => void;
+        "try"?: number;
     }
     interface MyTable {
     }
