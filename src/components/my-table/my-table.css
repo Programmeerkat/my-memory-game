@@ -1,0 +1,14 @@
+.my-table {
+  position:absolute;
+  top:0px;
+  right:0px;
+  bottom:0px;
+  left:0px;
+  background-color: rgb(224, 224, 224);
+  display: grid;
+  grid-template-columns: auto auto auto auto auto auto;
+  justify-content: center; 
+  align-content: center; 
+  column-gap: 25px;
+  row-gap: 25px;
+}
