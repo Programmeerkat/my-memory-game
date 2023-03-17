@@ -11,6 +11,8 @@ export class MyTable {
   @State() counter = 0;
   
   @State() shuffledCards = [];
+
+  private numberOfMoves = 0;
   
   private openedCards = [];
   
@@ -32,7 +34,7 @@ export class MyTable {
   ]
 
   @Listen('startOver')
-  startOverHandler(event: CustomEvent) {
+  startOverHandler() {
     this.gameHasEnded = false;
     this.shuffleCards();
     this.counter++;
@@ -53,6 +55,7 @@ export class MyTable {
     }
     this.openedCards.push(card);
     if (this.openedCards.length === 2) {
+      this.numberOfMoves++;
       this.locked = true;
       setTimeout(() => {
         if (this.openedCards[0].color == this.openedCards[1].color) {
@@ -98,7 +101,7 @@ export class MyTable {
   render() {
     return (
       <Host class="my-table">
-        {this.gameHasEnded && <my-modal text={`Congratulations, you have won the game!`}></my-modal>}
+        {this.gameHasEnded && <my-modal text={`Congratulations, you have won the game in ${this.numberOfMoves} moves!`}></my-modal>}
         {this.shuffledCards.map(card => (<my-card key={card.cardId} card={card} try={this.counter}></my-card>))}
       </Host>
     );
